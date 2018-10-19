@@ -14,7 +14,7 @@ Node.js
 
 ### Installing
 
-First, you need to install one packages at a global level and then you need to install all dependencies using the third command so you need to perform the below-mentioned command.
+First, you need to install one packages at a global level and then you need to install all dependencies using the second command so you need to perform the below-mentioned command.
 
 * npm install -g yarn
 * yarn install
