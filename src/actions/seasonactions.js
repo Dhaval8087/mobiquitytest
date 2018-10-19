@@ -68,7 +68,7 @@ export const getChampion = (season) => {
             .then((response) => {
                 dispatch(isLoading(false));
                 if (typeof response.data && response.data.MRData && response.data.MRData.StandingsTable) {
-                    dispatch(getChampionData(response.data.MRData.StandingsTable.DriverStandings))
+                    dispatch(getChampionData(response.data.MRData.StandingsTable.StandingsLists));
                 }
                 else {
                     dispatch(getChampionData([]));

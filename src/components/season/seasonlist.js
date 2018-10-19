@@ -8,7 +8,8 @@ import {
 } from 'reactstrap';
 import _ from 'underscore';
 import './seasonlist.css';
-import Spinner from '../common/spinner';
+import MainContainer from '../common/container';
+
 class SeasonList extends Component {
     componentDidMount() {
         this.props.getSeasons();
@@ -21,7 +22,7 @@ class SeasonList extends Component {
     }
     renderSeasonList = () => {
         const seasons = this.props.seasons;
-        if (typeof seasons == "undefined" || seasons.Seasons.length === 0)
+        if (seasons.length === 0 || seasons.Seasons.length === 0)
             return null;
 
         return _.map(seasons.Seasons, (item, index) => {
@@ -34,7 +35,7 @@ class SeasonList extends Component {
     }
     render() {
         return (
-            <Spinner isload={this.props.isLoading}>
+            <MainContainer isload={this.props.isLoading}>
                 <Container>
                     <Row>
                         <Col md={12}>
@@ -45,7 +46,7 @@ class SeasonList extends Component {
                         {this.renderSeasonList()}
                     </Row>
                 </Container>
-            </Spinner>
+            </MainContainer>
         )
     }
 }

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { getWinners, getChampion } from '../../actions/seasonactions';
-import { Container, Table, Row,Col } from 'reactstrap';
-import Spinner from '../common/spinner'
+import { Container, Table, Row, Col } from 'reactstrap';
+import MainContainer from '../common/container'
+import './winnerlist.css';
 import _ from 'underscore';
 class WinnerList extends Component {
     componentDidMount() {
@@ -16,15 +17,21 @@ class WinnerList extends Component {
     }
     loadWinners = () => {
         const winners = this.props.winners;
-        if (typeof winners == "undefined" || winners.length === 0)
+        const champion = this.props.champion;
+        if (winners.length === 0 || champion.length === 0)
             return null;
 
+        let championDriverId = champion[0].DriverStandings[0].Driver.driverId;
         return _.map(winners, (item, index) => {
             let driverInfo = item.Results[0].Driver;
             let constructorInfo = item.Results[0].Constructor;
             let results = item.Results[0];
+            let championcls = null;
+            if (driverInfo.driverId === championDriverId) {
+                championcls = "champion";
+            }
             return (
-                <tr key={index}>
+                <tr key={index} className={championcls}>
                     <td>{index + 1}</td>
                     <td>{item.raceName}</td>
                     <td>{driverInfo.number}</td>
@@ -41,11 +48,11 @@ class WinnerList extends Component {
     }
     render() {
         return (
-            <Spinner isload={this.props.isLoading}>
+            <MainContainer isload={this.props.isLoading}>
                 <Container>
                     <Row>
                         <Col md={12}>
-                            <h2>Winner List of {this.props.match.params.season}</h2>
+                            <h2>Winners List of {this.props.match.params.season}</h2>
                         </Col>
                     </Row>
 
@@ -69,14 +76,15 @@ class WinnerList extends Component {
                         </tbody>
                     </Table>
                 </Container>
-            </Spinner>
+            </MainContainer>
         )
     }
 }
 const mapStateToProps = (state) => {
     return {
         winners: state.seasonReducer.winners,
-        isLoading: state.seasonReducer.isLoading
+        isLoading: state.seasonReducer.isLoading,
+        champion: state.seasonReducer.champion
     }
 }
 const mapDispatchToProps = (dispatch) => {

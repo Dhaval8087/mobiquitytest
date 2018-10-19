@@ -1,6 +1,11 @@
 import { ISLOADING, GET_SEASON_LIST, GET_SEASON_WINNERS, GET_SEASON_CHAMPION } from '../constants/action-types';
-const initialState = [];
-const seasonReducer = (state = initialState, action) => {
+const getInitialState = () => ({
+    seasons: [],
+    winners: [],
+    champion: [],
+    isLoading: false,
+  });
+const seasonReducer = (state = getInitialState(), action) => {
     switch (action.type) {
         case ISLOADING:
             return { ...state, isLoading: action.isLoading };
