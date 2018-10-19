@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getSeasons } from '../../actions/seasonactions';
 import {
-    Card, Button, CardHeader, CardFooter, CardTitle, CardBody, Row, Container, Label, Col
+    Card, CardHeader, Row, Container, Col
 } from 'reactstrap';
 import _ from 'underscore';
 import './seasonlist.css';
@@ -14,16 +14,19 @@ class SeasonList extends Component {
         this.props.getSeasons();
     }
     onCardClick = (e) => {
-        alert(e.target.id);
+        const { router } = this.context;
+        router.history.push({    // use push
+            pathname: `/winners/${e.target.id}`
+        });
     }
     renderSeasonList = () => {
         const seasons = this.props.seasons;
         if (typeof seasons == "undefined" || seasons.Seasons.length === 0)
             return null;
 
-        return _.map(seasons.Seasons, (item) => {
+        return _.map(seasons.Seasons, (item, index) => {
             return (
-                <Card className="cardmargin" onClick={this.onCardClick} >
+                <Card className="cardmargin" onClick={this.onCardClick} key={index}>
                     <CardHeader className="cardheader" id={item.season}>{item.season}</CardHeader>
                 </Card>
             )

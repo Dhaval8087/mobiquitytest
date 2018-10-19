@@ -1,3 +1,3 @@
 export default {
-    API_URL: 'http://ergast.com/api/f1/'
+    API_URL: 'http://ergast.com/api/f1'
   }
